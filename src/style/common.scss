@@ -1,0 +1,27 @@
+@import '~bootstrap/scss/bootstrap';
+@import '~@fontsource/montserrat/index.css';
+@import '~@fontsource/montserrat/700.css';
+
+@import './variables.scss';
+
+// RESET
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// COMMON
+body {
+    font-family: $main_font;
+}
+
+.container {
+    width: 65%;
+    margin: 0 auto;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
