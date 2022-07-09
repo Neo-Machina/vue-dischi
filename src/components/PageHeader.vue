@@ -20,7 +20,7 @@ export default {
 @import '../style/variables.scss';
 
 header {
-    height: 60px;
+    height: 50px;
     background-color: $main_color;
 
     .flex_img {
@@ -29,8 +29,8 @@ header {
         align-items: center;
 
         img {
-            width: 35px;
-            margin-left: 20px;
+            width: 30px;
+            margin-left: 15px;
         }
     }
 }

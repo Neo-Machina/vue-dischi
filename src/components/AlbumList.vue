@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="container">
-            <div class="row row-cols-5">
+            <div class="row">
                 <div class="col" v-for="(element,index) in albumsArray" :key="index">
                     <AlbumCard :info="element" />
                 </div>
@@ -48,6 +48,23 @@ export default {
 
 section {
     background-color: #1e2d3b;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 50px);
+
+    .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .col {
+                margin: 8px 0;
+                width: calc((100% / 5) - 23px);
+            }
+        }
+    }
 }
 </style>
