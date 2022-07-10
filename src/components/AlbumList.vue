@@ -1,45 +1,55 @@
 <template>
     <section>
         <div class="container">
-            <div class="row">
+            <div v-if="loading" class="row">
                 <div class="col" v-for="(element,index) in albumsArray" :key="index">
                     <AlbumCard :info="element" />
                 </div>
             </div>
+
+            <LoaderComponent v-else />
         </div>
     </section>
 </template>
 
 <script>
-
 import axios from "axios";
 
 import AlbumCard from './AlbumCard.vue';
+import LoaderComponent from './LoaderComponent.vue';
 
 export default {
     name: 'AlbumList',
     components: {
-        AlbumCard
+        AlbumCard,
+        LoaderComponent
     },
     data() {
         return {
             url:'https://flynn.boolean.careers/exercises/api/array/music',
-            albumsArray: []
+            albumsArray: [],
+            loading: false,
+            isLoaded: null
         }
-    },
-    created() {
-        this.getAlbums();
     },
     methods: {
         getAlbums() {
             axios.get(this.url).then((response) => {
                 this.albumsArray = response.data.response;
+                this.loading = true; 
             })
             .catch((err) => {
                 console.log('Error', err);
             });
+        },
+
+        loadingAlbumList() {
+            setTimeout(() => this.getAlbums(), 1000); 
         }
-    }
+    },
+    created() {
+        this.loadingAlbumList();
+    },
 }
 </script>
 
