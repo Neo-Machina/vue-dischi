@@ -1,9 +1,9 @@
 <template>
     <section>
         <div class="container">
-            <SelectComponent />
-
             <div v-if="loading" class="row">
+                <SelectGenre :genreMusic="singleGenre" :genreArray="genreArray"/>
+
                 <div class="col" v-for="(element,index) in albumsArray" :key="index">
                     <AlbumCard :info="element" />
                 </div>
@@ -19,7 +19,7 @@ import axios from "axios";
 
 import AlbumCard from './AlbumCard.vue';
 import LoaderComponent from './LoaderComponent.vue';
-import SelectComponent from './SelectComponent.vue';
+import SelectGenre from './SelectGenre.vue';
 
 
 export default {
@@ -27,21 +27,27 @@ export default {
     components: {
         AlbumCard,
         LoaderComponent,
-        SelectComponent
+        SelectGenre
     },
     data() {
         return {
             url:'https://flynn.boolean.careers/exercises/api/array/music',
             albumsArray: [],
             loading: false,
-            isLoaded: null
+            isLoaded: null,
+            genreArray: [
+                'Rock',
+                'Pop',
+                'Metal',
+                'Jazz'
+            ],
+            singleGenre: ''
         }
     },
     methods: {
         getAlbums() {
             axios.get(this.url).then((response) => {
                 this.albumsArray = response.data.response;
-                this.loading = true; 
             })
             .catch((err) => {
                 console.log('Error', err);
@@ -49,10 +55,11 @@ export default {
         },
 
         loadingAlbumList() {
-            setTimeout(() => this.getAlbums(), 1000); 
+            setTimeout(() => this.loading = true, 1000); 
         }
     },
     created() {
+        this.getAlbums();
         this.loadingAlbumList();
     },
 }
