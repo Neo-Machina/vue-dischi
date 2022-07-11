@@ -1,6 +1,8 @@
 <template>
     <section>
         <div class="container">
+            <SelectComponent />
+
             <div v-if="loading" class="row">
                 <div class="col" v-for="(element,index) in albumsArray" :key="index">
                     <AlbumCard :info="element" />
@@ -17,12 +19,15 @@ import axios from "axios";
 
 import AlbumCard from './AlbumCard.vue';
 import LoaderComponent from './LoaderComponent.vue';
+import SelectComponent from './SelectComponent.vue';
+
 
 export default {
     name: 'AlbumList',
     components: {
         AlbumCard,
-        LoaderComponent
+        LoaderComponent,
+        SelectComponent
     },
     data() {
         return {
