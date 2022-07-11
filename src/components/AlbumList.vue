@@ -1,10 +1,10 @@
 <template>
     <section>
         <div class="container">
-            <div v-if="loading" class="row">
-                <SelectGenre :genreMusic="singleGenre" :genreArray="genreArray"/>
+            <SelectGenre :genreMusic="selectedGenre" :genreArray="genreArray" @updateGenre="changeValueGenre($event)"/>
 
-                <div class="col" v-for="(element,index) in albumsArray" :key="index">
+            <div v-if="loading" class="row">
+                <div class="col" v-for="(element,index) in filteredGenre" :key="index">
                     <AlbumCard :info="element" />
                 </div>
             </div>
@@ -41,7 +41,17 @@ export default {
                 'Metal',
                 'Jazz'
             ],
-            singleGenre: ''
+            selectedGenre: ''
+        }
+    },
+    computed: {
+        filteredGenre() {
+            if(this.selectedGenre === '') {
+                return this.albumsArray;
+            }
+            else {
+                return this.albumsArray.filter(album => album.genre === this.selectedGenre);
+            }
         }
     },
     methods: {
@@ -56,12 +66,15 @@ export default {
 
         loadingAlbumList() {
             setTimeout(() => this.loading = true, 1000); 
+        },
+        changeValueGenre(newValue) {
+            this.selectedGenre = newValue;
         }
     },
     created() {
         this.getAlbums();
         this.loadingAlbumList();
-    },
+    }
 }
 </script>
 
@@ -72,11 +85,7 @@ section {
     background-color: #1e2d3b;
     height: calc(100vh - 50px);
 
-    .container {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        
+    .container {        
         .row {
             display: flex;
             justify-content: space-between;
