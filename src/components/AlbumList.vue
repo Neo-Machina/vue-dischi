@@ -6,7 +6,7 @@
             <SelectArtist :artistMusic="selectedArtist" :artistsArray="artistsArray" @updateArtist="changeValueArtist($event)"/>
 
             <div v-if="loading" class="row">
-                <div class="col" v-for="(element, index) in filteredGenre" :key="index">
+                <div class="col" v-for="(element, index) in filteredAlbums" :key="index">
                     <AlbumCard :info="element" />
                 </div>
             </div>
@@ -62,22 +62,19 @@ export default {
         }
     },
     computed: {
-        filteredGenre() {
-            if(this.selectedGenre === '') {
-                return this.albumsArray;
+        filteredAlbums() {
+            let tempFilter = this.albumsArray;
+
+            if(this.selectedGenre !== '') {
+                tempFilter = this.albumsArray.filter(album => album.genre === this.selectedGenre);
             }
-            else {
-                return this.albumsArray.filter(album => album.genre === this.selectedGenre);
+            if(this.selectedArtist !== '') {
+                tempFilter = tempFilter.filter(album => album.author === this.selectedArtist);
             }
-        },
-        filteredArtist() {
-            if(this.selectedArtist === '') {
-                return this.albumsArray;
-            }
-            else {
-                return this.albumsArray.filter(album => album.author === this.selectedArtist);
-            }
-        },
+
+            return tempFilter;
+        }
+
     },
     methods: {
         getAlbums() {
