@@ -1,5 +1,5 @@
 <template>
-        <select @change="changeGenre($event)" name="" id="">
+        <select @change="changeGenre($event)" name="">
             <option value="">Tutti i generi degli album</option>
             <option v-for="(genre, index) in genreArray" :key="index" :value="genre">{{ genre }}</option>
         </select>
@@ -22,6 +22,6 @@ export default {
 
 <style lang="scss" scoped>
 select {
-    margin: 20px 0;
+    margin: 20px 10px 20px 0;
 }
 </style>

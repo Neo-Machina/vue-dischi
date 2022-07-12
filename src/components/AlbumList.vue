@@ -3,8 +3,10 @@
         <div class="container">
             <SelectGenre :genreMusic="selectedGenre" :genreArray="genreArray" @updateGenre="changeValueGenre($event)"/>
 
+            <SelectArtist :artistMusic="selectedArtist" :artistsArray="artistsArray" @updateArtist="changeValueArtist($event)"/>
+
             <div v-if="loading" class="row">
-                <div class="col" v-for="(element,index) in filteredGenre" :key="index">
+                <div class="col" v-for="(element, index) in filteredGenre" :key="index">
                     <AlbumCard :info="element" />
                 </div>
             </div>
@@ -20,6 +22,7 @@ import axios from "axios";
 import AlbumCard from './AlbumCard.vue';
 import LoaderComponent from './LoaderComponent.vue';
 import SelectGenre from './SelectGenre.vue';
+import SelectArtist from './SelectArtist.vue';
 
 
 export default {
@@ -27,7 +30,8 @@ export default {
     components: {
         AlbumCard,
         LoaderComponent,
-        SelectGenre
+        SelectGenre,
+        SelectArtist
     },
     data() {
         return {
@@ -41,7 +45,20 @@ export default {
                 'Metal',
                 'Jazz'
             ],
-            selectedGenre: ''
+            selectedGenre: '',
+            artistsArray: [
+                'Bon Jovi',
+                'Queen',
+                'Sting',
+                'Steve Gadd Band',
+                'Iron Maiden',
+                'Eric Clapton',
+                'Deep Purple',
+                'Metallica',
+                'Dave Weckl',
+                'Michael Jacjson'
+            ],
+            selectedArtist: ''
         }
     },
     computed: {
@@ -52,7 +69,15 @@ export default {
             else {
                 return this.albumsArray.filter(album => album.genre === this.selectedGenre);
             }
-        }
+        },
+        filteredArtist() {
+            if(this.selectedArtist === '') {
+                return this.albumsArray;
+            }
+            else {
+                return this.albumsArray.filter(album => album.author === this.selectedArtist);
+            }
+        },
     },
     methods: {
         getAlbums() {
@@ -69,7 +94,11 @@ export default {
         },
         changeValueGenre(newValue) {
             this.selectedGenre = newValue;
+        },
+        changeValueArtist(newValue) {
+            this.selectedArtist = newValue;
         }
+        
     },
     created() {
         this.getAlbums();
