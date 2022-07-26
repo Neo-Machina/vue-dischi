@@ -28,7 +28,7 @@ export default {
 .album_card {
     padding: 16px;
     background-color: $main_color;
-    height: 258px;
+    height: 280px;
     
     img {
         max-width: 130px;
@@ -43,18 +43,18 @@ export default {
         font-weight: 700;
         text-transform: $text_upercase;
         font-size: 15px;
-        margin: 16px 0;
+        margin: 16px 3px;
         }
 
         .album_text {
             color: $text_card;
 
             div:first-child {
-                font-size: 13px;
+                font-size: 14px;
             }
 
             div:last-child {
-                font-size: 11px;
+                font-size: 12px;
             }
         }
     }
